@@ -1,13 +1,17 @@
 import { Category } from '../model/Category';
+import {
+  ICategoriesRepositoy,
+  ICreateCategoryDTO,
+} from './ICategoriesRepository';
 
 // DTO => Data transfer object
-interface ICreateCategoryDTO {
-  name: string;
-  description: string;
-}
-class CategoriesRepository {
+
+class CategoriesRepository implements ICategoriesRepositoy {
   private categories: Category[] = [];
 
+  List(): Category[] {
+    throw new Error('Method not implemented.');
+  }
   constructor() {
     this.categories = [];
   }
