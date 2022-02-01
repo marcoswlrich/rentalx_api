@@ -1,19 +1,23 @@
 import { Category } from '../model/Category';
 import {
-  ICategoriesRepositoy,
+  ICategoriesRepository,
   ICreateCategoryDTO,
 } from './ICategoriesRepository';
 
-// DTO => Data transfer object
+class CategoriesRepository implements ICategoriesRepository {
+  private categories: Category[];
+  // eslint-disable-next-line no-use-before-define
+  private static INSTANCE: CategoriesRepository;
 
-class CategoriesRepository implements ICategoriesRepositoy {
-  private categories: Category[] = [];
-
-  List(): Category[] {
-    throw new Error('Method not implemented.');
-  }
-  constructor() {
+  private constructor() {
     this.categories = [];
+  }
+
+  public static getInstance(): CategoriesRepository {
+    if (!CategoriesRepository.INSTANCE) {
+      CategoriesRepository.INSTANCE = new CategoriesRepository();
+    }
+    return CategoriesRepository.INSTANCE;
   }
 
   create({ description, name }: ICreateCategoryDTO): void {
