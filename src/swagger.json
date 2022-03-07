@@ -7,5 +7,72 @@
     "contact": {
       "email": "marcoswlrich@gmail.com"
     }
+  },
+  "paths": {
+    "/categories": {
+      "post": {
+        "summary": "Create category",
+        "description": "Create a new Category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type":"string"
+                  }
+                },
+                "example": {
+                  "name": "create category sample",
+                  "description": "create category description sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "created"
+          },
+          "501": {
+            "description": "category already exist"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "List all categories",
+        "description": "List all categories",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "itens": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type":"string"
+                  },
+                  "description": {
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
   }
 }
