@@ -2,10 +2,10 @@ import { Specification } from '@modules/cars/infra/typeorm/entities/Specificatio
 
 import {
   ICreateSpecificationDTO,
-  ISpecificationRepository,
-} from '../ISpecificationRepository';
+  ISpecificationsRepository,
+} from '../ISpecificationsRepository';
 
-class SpecificationsRepositoryInMemory implements ISpecificationRepository {
+class SpecificationsRepositoryInMemory implements ISpecificationsRepository {
   specifications: Specification[] = [];
 
   async create({
