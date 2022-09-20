@@ -1,12 +1,12 @@
 import { hash } from 'bcryptjs';
 import request from 'supertest';
-import { Connection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 import { app } from '@shared/infra/http/app';
-import createConnection from '@shared/infra/typeorm';
+import { createConnection } from '@shared/infra/typeorm';
 
-let connection: Connection;
+let connection: DataSource;
 describe('Create Category Controller', () => {
   beforeAll(async () => {
     connection = await createConnection();
