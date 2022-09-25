@@ -9,7 +9,7 @@ let authenticateUserUseCase: AuthenticateUserUseCase;
 let createUserUseCase: CreateUserUseCase;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 
-describe('Authenticate user', () => {
+describe('Authenticate User', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     authenticateUserUseCase = new AuthenticateUserUseCase(
@@ -18,14 +18,13 @@ describe('Authenticate user', () => {
     createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
   });
 
-  it('should be able to authenticate an existent user', async () => {
+  it('should be able to authenticate an user', async () => {
     const user: ICreateUserDTO = {
-      driver_license: '00123',
+      driver_license: '000123',
       email: 'user@test.com',
       password: '1234',
-      name: 'User test',
+      name: 'User Test',
     };
-
     await createUserUseCase.execute(user);
 
     const result = await authenticateUserUseCase.execute({
@@ -36,30 +35,30 @@ describe('Authenticate user', () => {
     expect(result).toHaveProperty('token');
   });
 
-  it('should not be able to authenticate a non existent user', () => {
-    expect(async () => {
-      await authenticateUserUseCase.execute({
-        email: 'nonexistinguser@test.com',
-        password: '12345',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+  it('should not be able to authenticate an nonexistent user', async () => {
+    await expect(
+      authenticateUserUseCase.execute({
+        email: 'false@email.com',
+        password: '1234',
+      }),
+    ).rejects.toEqual(new AppError('Email or password incorrect!'));
   });
 
-  it('should not be able to authenticate with incorrect password', () => {
-    expect(async () => {
-      const user: ICreateUserDTO = {
-        driver_license: '12345',
-        email: 'user@user.com',
-        password: '1234',
-        name: 'User test error',
-      };
+  it('should not be able to authenticate with incorrect password', async () => {
+    const user: ICreateUserDTO = {
+      driver_license: '9999',
+      email: 'user@user.com',
+      password: '1234',
+      name: 'User Test Error',
+    };
 
-      await createUserUseCase.execute(user);
+    await createUserUseCase.execute(user);
 
-      await authenticateUserUseCase.execute({
+    await expect(
+      authenticateUserUseCase.execute({
         email: user.email,
         password: 'incorrectPassword',
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      }),
+    ).rejects.toEqual(new AppError('Email or password incorrect!'));
   });
 });
