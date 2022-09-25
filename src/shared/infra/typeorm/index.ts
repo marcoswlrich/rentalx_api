@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm';
 
 import { User } from '@modules/accounts/infra/typeorm/entities/User';
+import { UserTokens } from '@modules/accounts/infra/typeorm/entities/UserTokens';
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 import { CarImage } from '@modules/cars/infra/typeorm/entities/CarImage';
 import { Category } from '@modules/cars/infra/typeorm/entities/Category';
@@ -24,7 +25,7 @@ const dataSource = new DataSource({
   username: 'docker',
   password: 'ignite',
   database: process.env.NODE_ENV === 'test' ? 'rentx_test' : 'rentx',
-  entities: [Category, Specification, User, Car, CarImage, Rental],
+  entities: [Category, Specification, User, Car, CarImage, Rental, UserTokens],
   migrations: [
     CreateCategories1662948592066,
     CreateSpecifications1662949570943,
