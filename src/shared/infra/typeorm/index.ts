@@ -16,10 +16,11 @@ import { CreateCars1662950006861 } from './migrations/1662950006861-CreateCars';
 import { CreateSpecificationsCars1662950089462 } from './migrations/1662950089462-CreateSpecificationsCars';
 import { CreateCarImages1662950176527 } from './migrations/1662950176527-CreateCarImages';
 import { CreateRentals1662950277039 } from './migrations/1662950277039-CreateRentals';
+import { CreateUsersToken1664083947283 } from './migrations/1664083947283-CreateUsersToken';
 
 const dataSource = new DataSource({
   type: 'postgres',
-  port: 5432, // change localhost to run migration
+  port: 5432,
   username: 'docker',
   password: 'ignite',
   database: process.env.NODE_ENV === 'test' ? 'rentx_test' : 'rentx',
@@ -34,6 +35,7 @@ const dataSource = new DataSource({
     CreateSpecificationsCars1662950089462,
     CreateCarImages1662950176527,
     CreateRentals1662950277039,
+    CreateUsersToken1664083947283,
   ],
 });
 
